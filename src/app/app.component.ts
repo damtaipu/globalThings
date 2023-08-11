@@ -11,7 +11,7 @@ import { SQLiteObject } from "@ionic-native/sqlite";
   templateUrl: "app.html",
 })
 export class MyApp {
-  rootPage: any;
+  rootPage:any = TabsPage;
 
   constructor(
     platform: Platform,
@@ -22,6 +22,18 @@ export class MyApp {
     public toastCtrl: ToastController
   ) {
     platform.ready().then(() => {
+
+      // Instância principal do SQLite
+      dbProvider
+        .createDatabase()
+        .then((e) => {
+          console.log("sucesso", e);
+        })
+        .catch((e) => {
+          console.log("erro", e);
+      });
+
+
       // PARA ESTE DESAFIO UTILIZEI UM SERVICE A NÍVEL DE WEBVIEW
       // PARA USO NO DISPOSITIVO REAL PODERÁ SER UTILIZADO UMA BIBLIOTECA COMO A: NETWORK
       this.check.checkConnection().subscribe((e) => {
@@ -29,7 +41,7 @@ export class MyApp {
       });
 
       this.check.getBehavious().subscribe(e => {
-
+        console.log(e)
         //If online check data in SQLite
         if(e === 'online') {
           this.dbProvider.getDB().then((db: SQLiteObject) => {
@@ -53,24 +65,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      // Instância principal do SQLite
-      dbProvider
-        .createDatabase()
-        .then((e) => {
-          console.log("sucesso", e);
-          // fechando a SplashScreen somente quando o banco for criado
-          this.openHomePage(splashScreen);
-        })
-        .catch((e) => {
-          console.log("erro", e);
-          // ou se houver erro na criação do banco
-          this.openHomePage(splashScreen);
-        });
     });
-  }
-
-  private openHomePage(splashScreen: SplashScreen) {
-    splashScreen.hide();
-    this.rootPage = TabsPage;
   }
 }
