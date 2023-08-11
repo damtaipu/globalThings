@@ -37,18 +37,14 @@ export class MyApp {
 
             db.executeSql(sql).then(r => {
               if(r.rows.length > 0){
-                console.log(r.rows)
+                const toast = this.toastCtrl.create({
+                  message: 'Internet conectada! Enviando dados.',
+                  duration: 3000
+                })
+                toast.present()
               }
             })
-          })
-
-
-
-          /* const toast = this.toastCtrl.create({
-            message: 'Internet conectada! Enviando dados.',
-            duration: 3000
-          })
-          toast.present() */
+          })          
         }
       })
 
