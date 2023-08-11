@@ -1,11 +1,40 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-buttons start style="order: 1;" (click)="backToTabMain()">
+      <button ion-button icon-only color="royal">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title end>Cadastro</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <h1>Cadastre seu herói</h1>
+  <ion-list>
 
+    <ion-item>
+      <ion-label floating>Nome do Heróis</ion-label>
+      <ion-input [(ngModel)]="nameHeroe" type="text"></ion-input>
+    </ion-item>
+
+    <!-- Categorias poderiam ser carregadas via http request
+  Como são poucas resolvi pô-las em hardcode -->
+    <ion-item>
+      <ion-label>Gategoria</ion-label>
+      <ion-select [(ngModel)]="categoryHeroe">
+        <ion-option value="1">Trasnmutação</ion-option>
+        <ion-option value="2">Psiquico</ion-option>
+        <ion-option value="3">Artes Marciais</ion-option>
+        <ion-option value="4">Super Força</ion-option>
+        <ion-option value="5">Monstro</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="item-submit">
+      <button ion-button icon-start class="button-submit" color="secondary" (click)="submitHeroi()"><ion-icon
+          name="add"></ion-icon>Cadastrar</button>
+    </ion-item>
+
+  </ion-list>
 </ion-content>

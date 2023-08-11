@@ -1,5 +1,14 @@
-<ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>
+
+
+
+<ion-tabs #controlTabs>
+  <ion-tab [root]="tab1Root" tabTitle="Lista de heróis" tabIcon="person"></ion-tab>
+  <ion-tab [root]="tab2Root"></ion-tab>
+  <!-- <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab> -->
 </ion-tabs>
+
+<ion-fab bottom center (click)="goToRegisterHeroes()">
+      <button ion-fab>
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+</ion-fab>

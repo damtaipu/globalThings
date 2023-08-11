@@ -1,17 +1,53 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-buttons *ngIf="backButton" start style="order: 1;" (click)="backToListHeroes()">
+      <button ion-button icon-only color="royal">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title end>{{title}}</ion-title>
+  </ion-toolbar>
+  <ion-searchbar class="searchBar" *ngIf="searchBar" placeholder="Buscar Heróis" (ionInput)="searchHeroes($event)"></ion-searchbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+<ion-content #content>
+  <ion-slides #listEndDetail (ionSlideWillChange)="seeSlideChange()">
+
+    <ion-slide class="main-slide">
+      <ion-list #listHeroes>
+
+        <ion-item-sliding *ngFor="let hero of heroesList | filterList: searchTerms" #slidingItem>
+          <button ion-item (click)="seeDetail(hero)">
+            {{ hero.Name }}
+          </button>
+
+          <ion-item-options side="right">
+            <button ion-button color="warning" (click)="deleteHeroe(hero, slidingItem)">
+              <ion-icon name="trash"></ion-icon>
+              Apagar
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+
+      </ion-list>
+
+    </ion-slide>
+
+    <ion-slide>
+      <ion-title>Informações do herói</ion-title>
+
+      <ion-card>
+        <ion-card-header>
+          {{detailHeroi?.Name}}
+        </ion-card-header>
+        <ion-card-content>
+          Esse incrível heróis é conhecido como "{{detailHeroi?.Name}}", um dos mais icônicos e poderosos defensores do mundo dos quadrinhos e televisão. Sua categoria é "{{detailHeroi?.Category?.Name}}", o que significa que ele possui habilidades inigualável, capaz de realizar feitos extraordinários. Ativo e sempre pronto para proteger os inocentes, o {{detailHeroi?.Name}} é conhecido por suas habilidades sobre-humanas e resistência incomparável. Ele utiliza esses poderes para combater vilões e enfrentar desafios que ameaçam a humanidade, tornando-se um símbolo de esperança e inspiração para todos.
+        </ion-card-content>
+      </ion-card>
+
+      
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>
