@@ -13,6 +13,7 @@ Neste caso o app não implementa uma biblioteca para gerenciar a conexão tudo f
  - Node V 8.17.0
  - Cordova V 9.0.0
  - Ionic V 3.20.0
+ - Java 8
 
 ### Rodar o projeto
 Necessário Node, Cordova e Ionic nas versões acima.

@@ -11,7 +11,7 @@ import { SQLiteObject } from "@ionic-native/sqlite";
   templateUrl: "app.html",
 })
 export class MyApp {
-  rootPage:any = TabsPage;
+  rootPage: any = TabsPage;
 
   constructor(
     platform: Platform,
@@ -22,7 +22,6 @@ export class MyApp {
     public toastCtrl: ToastController
   ) {
     platform.ready().then(() => {
-
       // Instância principal do SQLite
       dbProvider
         .createDatabase()
@@ -31,8 +30,7 @@ export class MyApp {
         })
         .catch((e) => {
           console.log("erro", e);
-      });
-
+        });
 
       // PARA ESTE DESAFIO UTILIZEI UM SERVICE A NÍVEL DE WEBVIEW
       // PARA USO NO DISPOSITIVO REAL PODERÁ SER UTILIZADO UMA BIBLIOTECA COMO A: NETWORK
@@ -40,31 +38,30 @@ export class MyApp {
         this.check.setValueBehavious(e.type);
       });
 
-      this.check.getBehavious().subscribe(e => {
-        console.log(e)
+      this.check.getBehavious().subscribe((e) => {
+        console.log(e);
         //If online check data in SQLite
-        if(e === 'online') {
+        if (e === "online") {
           this.dbProvider.getDB().then((db: SQLiteObject) => {
-            let sql = 'select * from cadHeroes';
+            let sql = "select * from cadHeroes";
 
-            db.executeSql(sql).then(r => {
-              if(r.rows.length > 0){
+            db.executeSql(sql).then((r) => {
+              if (r.rows.length > 0) {
                 const toast = this.toastCtrl.create({
-                  message: 'Internet conectada! Enviando dados.',
-                  duration: 3000
-                })
-                toast.present()
+                  message: "Internet conectada! Enviando dados.",
+                  duration: 3000,
+                });
+                toast.present();
               }
-            })
-          })          
+            });
+          });
         }
-      })
+      });
 
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
     });
   }
 }
